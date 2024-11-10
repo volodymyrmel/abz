@@ -15,8 +15,7 @@ provider "aws" {
 resource "aws_instance" "wordpress" {
   ami                    = "ami-0ddc798b3f1a5117e"
   instance_type          = "t2.micro"
-  subnet_id              = aws_subnet.public_subnet.id
-  vpc_security_group_ids = [aws_security_group.ec2_sg.id]
+  subnet_id              = aws_subnet.public.id
   associate_public_ip_address = true
 
   tags = {
