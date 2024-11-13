@@ -14,6 +14,16 @@ resource "aws_subnet" "private" {
   cidr_block = "10.0.2.0/24"
   availability_zone = "us-east-1"
 }
+resource "aws_network_interface" "test" {
+  subnet_id       = aws_subnet.public.id
+  private_ips     = ["10.0.1.0"]
+  security_groups = [aws_security_group.rds_sg.id]
+
+  attachment {
+    instance     = aws_instance.wordpress.id
+    device_index = 1
+  }
+}
 
 resource "aws_internet_gateway" "public_gateway" {
   vpc_id = aws_vpc.main_vpc.id
